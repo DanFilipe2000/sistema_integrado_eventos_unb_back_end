@@ -12,8 +12,11 @@ const connection = mysql.createConnection({
 const { create_db } = require('./sql_scripts');
 
 connection.connect(err => {
-  if (err) throw err;
-  
+  if (err) {
+    console.error('Erro ao conectar:', err);
+    return;
+  }
+
   connection.query(create_db, err => {
     if (err) {
       console.error('Erro ao executar o script SQL:', err);
