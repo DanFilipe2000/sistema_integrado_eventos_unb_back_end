@@ -1,4 +1,7 @@
 const create_db = `
+CREATE DATABASE IF NOT EXISTS eventos_db;
+USE eventos_db;
+
 CREATE TABLE IF NOT EXISTS Estado (
     Sigla CHAR(2) PRIMARY KEY,
     Nome VARCHAR(50) NOT NULL
