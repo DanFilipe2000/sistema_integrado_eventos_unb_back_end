@@ -5,7 +5,7 @@ const connection = mysql.createConnection({
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || '3306',
   port: process.env.DB_PORT || 'root',
-  password: process.env.DB_PASS || '',
+  password: process.env.DB_PASS || 'your_password',
   database: process.env.DB_NAME || 'eventos_db',
   multipleStatements: true
 });
