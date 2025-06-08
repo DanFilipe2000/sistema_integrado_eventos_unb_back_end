@@ -2,12 +2,11 @@ const mysql = require('mysql2');
 require('dotenv').config();
 
 const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER ,
-  port: process.env.DB_PORT,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || '3306',
+  port: process.env.DB_PORT || 'root',
+  password: process.env.DB_PASS || '',
+  database: process.env.DB_NAME || 'eventos_db',
   multipleStatements: true
 });
 
