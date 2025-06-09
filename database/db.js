@@ -17,6 +17,8 @@ connection.connect(err => {
     return;
   }
 
+  console.log("Conexão estabelecida!");
+
   connection.query(create_db, err => {
     if (err) {
       console.error('Erro ao executar o script SQL:', err);
