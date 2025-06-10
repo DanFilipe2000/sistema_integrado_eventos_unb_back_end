@@ -3,76 +3,94 @@ class Participantes {
     this.connection = connection;
   }
 
-  findAll(callback) {
-    this.connection.query('SELECT * FROM Participantes', (err, results) => {
-      callback(err, results);
+  getAll() {
+    return new Promise((resolve, reject) => {
+      this.connection.query('SELECT * FROM Participantes', (err, results) => {
+        if (err) return reject(err);
+        resolve(results);
+      });
     });
   }
 
-  findById(matricula, callback) {
-    this.connection.query(
-      'SELECT * FROM Participantes WHERE Matricula = ?',
-      [matricula],
-      (err, results) => {
-        if (err) return callback(err);
-        callback(null, results[0] || null);
-      }
-    );
+  getById(matricula) {
+    return new Promise((resolve, reject) => {
+      this.connection.query(
+        'SELECT * FROM Participantes WHERE Matricula = ?',
+        [matricula],
+        (err, results) => {
+          if (err) return reject(err);
+          resolve(results[0] || null);
+        }
+      );
+    });
   }
 
-  insert(participante, callback) {
-    const { CPF, Fones, Nome, DataNascimento, Email, idCurso } = participante;
-    this.connection.query(
-      `INSERT INTO Participantes (CPF, Fones, Nome, DataNascimento, Email, idCurso)
-       VALUES (?, ?, ?, ?, ?, ?)`,
-      [CPF, Fones, Nome, DataNascimento, Email, idCurso],
-      (err, result) => {
-        if (err) return callback(err);
-        callback(null, {
-          Matricula: result.insertId,
-          CPF,
-          Fones,
-          Nome,
-          DataNascimento,
-          Email,
-          idCurso
-        });
-      }
-    );
+  create({ CPF, Fones, Nome, DataNascimento, Email, idCurso }) {
+    return new Promise((resolve, reject) => {
+      const sql = `
+        INSERT INTO Participantes
+          (CPF, Fones, Nome, DataNascimento, Email, idCurso)
+        VALUES (?, ?, ?, ?, ?, ?)
+      `;
+      this.connection.query(
+        sql,
+        [CPF, Fones, Nome, DataNascimento, Email, idCurso],
+        (err, result) => {
+          if (err) return reject(err);
+          resolve({
+            Matricula: result.insertId,
+            CPF,
+            Fones,
+            Nome,
+            DataNascimento,
+            Email,
+            idCurso
+          });
+        }
+      );
+    });
   }
 
-  update(matricula, participante, callback) {
-    const { CPF, Fones, Nome, DataNascimento, Email, idCurso } = participante;
-    this.connection.query(
-      `UPDATE Participantes
-       SET CPF = ?, Fones = ?, Nome = ?, DataNascimento = ?, Email = ?, idCurso = ?
-       WHERE Matricula = ?`,
-      [CPF, Fones, Nome, DataNascimento, Email, idCurso, matricula],
-      err => {
-        if (err) return callback(err);
-        callback(null, {
-          Matricula: matricula,
-          CPF,
-          Fones,
-          Nome,
-          DataNascimento,
-          Email,
-          idCurso
-        });
-      }
-    );
+  update(matricula, { CPF, Fones, Nome, DataNascimento, Email, idCurso }) {
+    return new Promise((resolve, reject) => {
+      const sql = `
+        UPDATE Participantes
+        SET CPF = ?, Fones = ?, Nome = ?, DataNascimento = ?, Email = ?, idCurso = ?
+        WHERE Matricula = ?
+      `;
+      this.connection.query(
+        sql,
+        [CPF, Fones, Nome, DataNascimento, Email, idCurso, matricula],
+        (err, result) => {
+          if (err) return reject(err);
+          if (result.affectedRows === 0) return resolve(null);
+          resolve({
+            Matricula: matricula,
+            CPF,
+            Fones,
+            Nome,
+            DataNascimento,
+            Email,
+            idCurso
+          });
+        }
+      );
+    });
   }
 
-  delete(matricula, callback) {
-    this.connection.query(
-      'DELETE FROM Participantes WHERE Matricula = ?',
-      [matricula],
-      err => {
-        if (err) return callback(err);
-        callback(null, { Matricula: matricula });
-      }
-    );
+  delete(matricula) {
+    return new Promise((resolve, reject) => {
+      this.connection.query(
+        'DELETE FROM Participantes WHERE Matricula = ?',
+        [matricula],
+        (err, result) => {
+          if (err) return reject(err);
+          if (result.affectedRows === 0) return resolve(null);
+          resolve({ Matricula: matricula });
+        }
+      );
+    });
   }
 }
 
-module.exports = { Participantes };
+module.exports = Participantes;
