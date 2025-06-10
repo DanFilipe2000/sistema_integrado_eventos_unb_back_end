@@ -25,7 +25,6 @@ function initDB () {
       } else {
         console.log('Banco de dados e tabelas criados com sucesso!');
       }
-      connection.end();
     });
   });
 }

@@ -1,4 +1,7 @@
-const ParticipantesModel = require('../models/Participantes');
+const Participantes = require('../models/Participantes');
+const { connection } = require('../database/db')
+
+const ParticipantesModel = new Participantes(connection);
 
 const ParticipantesService = {
   async getAll() {

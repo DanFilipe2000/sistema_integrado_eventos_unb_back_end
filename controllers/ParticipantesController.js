@@ -1,7 +1,7 @@
 const ParticipantesService = require('../services/ParticipantesService');
 
 const ParticipantesController = {
-  async getAll(req, res) {
+  async getAll(_req, res) {
     try {
       const participantes = await ParticipantesService.getAll();
       res.json(participantes);
