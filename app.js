@@ -1,11 +1,18 @@
 const express = require('express');
+const { initDB } = require('./database/db');
 const bodyParser = require('body-parser');
-const userRoutes = require('./routes/users');
+const participantesRoutes = require('./routes/participantes');
+const cursoRoutes = require('./routes/curso');
+const avaliacaoRoutes = require('./routes/avaliacao');
+
 
 const app = express();
 app.use(bodyParser.json());
-app.use('/users', userRoutes);
+app.use('/participantes', participantesRoutes);
+app.use('/curso', cursoRoutes);
+app.use('/avaliacao', avaliacaoRoutes);
 
-app.listen(3000, () => {
-  console.log('Servidor rodando na porta 3000');
+app.listen(3000, async () => {
+  initDB();
+  console.log('Servidor rodando na porta 3000!');
 });

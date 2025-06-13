@@ -1,28 +1,36 @@
 const mysql = require('mysql2');
 require('dotenv').config();
+const { create_db } = require('../scripts_mysql/querys');
 
 const connection = mysql.createConnection({
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
-  port: process.env.DB_PORT || '3306',
+  port: process.env.DB_USER || '',
   password: process.env.DB_PASS || '',
-  database: process.env.DB_NAME || 'eventos_db',
   multipleStatements: true
 });
 
-const { create_db } = require('./sql_scripts');
-
-connection.connect(err => {
-  if (err) throw err;
-  
-  connection.query(create_db, err => {
+function initDB () {
+  connection.connect(err => {
     if (err) {
-      console.error('Erro ao executar o script SQL:', err);
-    } else {
-      console.log('Banco de dados e tabelas criados com sucesso!');
+      console.error('Erro ao conectar:', err);
+      return;
     }
-    connection.end();
-  });
-});
 
-module.exports = connection;
+    console.log("Conexão com MySQL Server estabelecida!");
+
+    connection.query(create_db, err => {
+      if (err) {
+        console.error('Erro ao executar o script SQL:', err);
+      } else {
+        console.log('Banco de dados e tabelas criados com sucesso!');
+      }
+    });
+  });
+}
+
+function dropDB () {
+  connection.end();
+}
+
+module.exports = { connection, initDB, dropDB };
