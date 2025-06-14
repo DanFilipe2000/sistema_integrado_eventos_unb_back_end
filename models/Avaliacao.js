@@ -58,7 +58,7 @@ class Avaliacao {
       `;
       this.connection.query(
         sql,
-        [Nota, Comentario, idParticipante, idEvento, idParticipante],
+        [Nota, Comentario, idParticipante, idEvento],
         (err, result) => {
           if (err) return reject(err);
           if (result.affectedRows === 0) return resolve(null);

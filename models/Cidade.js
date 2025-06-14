@@ -1,11 +1,11 @@
-class Categoriaevento {
+class Cidade {
   constructor(connection) {
     this.connection = connection;
   }
 
   getAll() {
     return new Promise((resolve, reject) => {
-      this.connection.query('SELECT * FROM Categoriaevento', (err, results) => {
+      this.connection.query('SELECT * FROM Cidade', (err, results) => {
         if (err) return reject(err);
         resolve(results);
       });
@@ -15,7 +15,7 @@ class Categoriaevento {
   getById(Codigo) {
     return new Promise((resolve, reject) => {
       this.connection.query(
-        'SELECT * FROM Categoriaevento WHERE Codigo = ?',
+        'SELECT * FROM Cidade WHERE Codigo = ?',
         [Codigo],
         (err, results) => {
           if (err) return reject(err);
@@ -25,45 +25,47 @@ class Categoriaevento {
     });
   }
 
-  create({ Codigo, Titulo }) {
+  create({ Codigo, Nome, idEstado }) {
     return new Promise((resolve, reject) => {
       const sql = `
-        INSERT INTO Categoriaevento
-          (Codigo, Titulo)
-        VALUES (?, ?)
+        INSERT INTO Cidade
+          (Codigo, Nome, idEstado)
+        VALUES (?, ?, ?)
       `;
       this.connection.query(
         sql,
-        [Codigo, Titulo],
+        [Codigo, Nome, idEstado],
         (err, result) => {
           if (err) return reject(err);
           resolve({
             Codigo: result.insertId,
             Codigo,
-            Titulo
+            Nome, 
+            idEstado
           });
         }
       );
     });
   }
 
-  update(Codigo, { Titulo }) {
+  update(Codigo, { Nome, idEstado }) {
     return new Promise((resolve, reject) => {
       const sql = `
-        UPDATE Categoriaevento
-        SET Codigo = ?, Titulo = ?
+        UPDATE Cidade
+        SET Codigo = ?, Nome = ?, idEstado = ?
         WHERE Codigo = ?
       `;
       this.connection.query(
         sql,
-        [Codigo, Titulo],
+        [Codigo, Nome, idEstado],
         (err, result) => {
           if (err) return reject(err);
           if (result.affectedRows === 0) return resolve(null);
           resolve({
             Codigo: Codigo,
             Codigo,
-            Titulo
+            Nome, 
+            idEstado
           });
         }
       );
@@ -73,7 +75,7 @@ class Categoriaevento {
   delete(Codigo) {
     return new Promise((resolve, reject) => {
       this.connection.query(
-        'DELETE FROM Categoriaevento WHERE Codigo = ?',
+        'DELETE FROM Cidade WHERE Codigo = ?',
         [Codigo],
         (err, result) => {
           if (err) return reject(err);
@@ -85,4 +87,4 @@ class Categoriaevento {
   }
 }
 
-module.exports = Categoriaevento;
+module.exports = Cidade;
