@@ -20,14 +20,14 @@ const AvaliacaoService = {
   },
 
   async update(idParticipante, data) {
-    const participante = await AvaliacaoModel.getById(idParticipante);
-    if (!participante) return null;
+    const avaliacao = await AvaliacaoModel.getById(idParticipante);
+    if (!avaliacao) return null;
     return await AvaliacaoModel.update(idParticipante, data);
   },
 
   async delete(idParticipante) {
-    const participante = await AvaliacaoModel.getById(idParticipante);
-    if (!participante) return null;
+    const avaliacao = await AvaliacaoModel.getById(idParticipante);
+    if (!avaliacao) return null;
     return await AvaliacaoModel.delete(idParticipante);
   }
 };

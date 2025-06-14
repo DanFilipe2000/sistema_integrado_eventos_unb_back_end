@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const participantesRoutes = require('./routes/participantes');
 const cursoRoutes = require('./routes/curso');
 const avaliacaoRoutes = require('./routes/avaliacao');
+const categoriaeventoRoutes = require('./routes/categoriaevento');
 
 
 const app = express();
@@ -11,6 +12,7 @@ app.use(bodyParser.json());
 app.use('/participantes', participantesRoutes);
 app.use('/curso', cursoRoutes);
 app.use('/avaliacao', avaliacaoRoutes);
+app.use('/categoriaevento', categoriaeventoRoutes);
 
 app.listen(3000, async () => {
   initDB();
