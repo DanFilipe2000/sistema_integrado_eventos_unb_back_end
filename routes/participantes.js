@@ -4,12 +4,12 @@ const ParticipantesController = require('../controllers/ParticipantesController'
 
 router.get('/', ParticipantesController.getAll);
 
-router.get('/:matricula', ParticipantesController.getById);
+router.get('/:id', ParticipantesController.getById);
 
 router.post('/', ParticipantesController.create);
 
-router.put('/:matricula', ParticipantesController.update);
+router.put('/:id', ParticipantesController.update);
 
-router.delete('/:matricula', ParticipantesController.delete);
+router.delete('/:id', ParticipantesController.delete);
 
 module.exports = router;
