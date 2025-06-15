@@ -5,6 +5,7 @@ const participantesRoutes = require('./routes/participantes');
 const cursoRoutes = require('./routes/curso');
 const departamentoRoutes = require('./routes/departamento');
 const cidadeRoutes = require('./routes/cidade');
+const estadoRoutes = require('./routes/estado');
 
 
 const app = express();
@@ -13,6 +14,8 @@ app.use('/participantes', participantesRoutes);
 app.use('/curso', cursoRoutes);
 app.use('/departamento', departamentoRoutes);
 app.use('/cidade', cidadeRoutes);
+app.use('/estado', estadoRoutes);
+
 
 app.listen(3000, async () => {
   initDB();
