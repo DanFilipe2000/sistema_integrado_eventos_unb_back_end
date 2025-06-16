@@ -3,8 +3,8 @@ const CidadeService = require('../services/CidadeService');
 const CidadeController = {
   async getAll(_req, res) {
     try {
-      const cidade = await CidadeService.getAll();
-      res.json(cidade);
+      const cidades = await CidadeService.getAll();
+      res.json(cidades);
     } catch (err) {
       console.error('Erro ao buscar cidades:', err);
       res.status(500).json({ error: 'Erro ao buscar cidades' });
@@ -23,7 +23,7 @@ const CidadeController = {
       res.status(500).json({ error: 'Erro ao buscar cidade' });
     }
   },
-  
+
   async create(req, res) {
     try {
       const novaCidade = await CidadeService.create(req.body);
@@ -36,11 +36,11 @@ const CidadeController = {
 
   async update(req, res) {
     try {
-      const atualizada = await CidadeService.update(req.params.id, req.body);
-      if (!atualizada) {
+      const cidadeAtualizada = await CidadeService.update(req.params.id, req.body);
+      if (!cidadeAtualizada) {
         return res.status(404).json({ message: 'Cidade não encontrada' });
       }
-      res.json({ message: 'Cidade atualizada com sucesso!' });
+      res.json({ message: 'Cidade atualizada com sucesso' });
     } catch (err) {
       console.error('Erro ao atualizar cidade:', err);
       res.status(500).json({ error: 'Erro ao atualizar cidade' });
@@ -49,8 +49,8 @@ const CidadeController = {
 
   async delete(req, res) {
     try {
-      const deletada = await CidadeService.delete(req.params.id);
-      if (!deletada) {
+      const cidadeDeletada = await CidadeService.delete(req.params.id);
+      if (!cidadeDeletada) {
         return res.status(404).json({ message: 'Cidade não encontrada' });
       }
       res.json({ message: 'Cidade deletada com sucesso' });

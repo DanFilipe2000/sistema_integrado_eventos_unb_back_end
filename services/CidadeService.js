@@ -1,4 +1,5 @@
 const Cidade = require('../models/Cidade');
+
 const { connection } = require('../database/db');
 
 const CidadeModel = new Cidade(connection);

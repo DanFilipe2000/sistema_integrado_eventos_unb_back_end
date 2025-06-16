@@ -25,8 +25,6 @@ class Curso {
     });
   }
 
-
-
   create({ Codigo, Titulo, idDepartamento }) {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -34,13 +32,14 @@ class Curso {
           (Codigo, Titulo, idDepartamento)
         VALUES (?, ?, ?)
       `;
-      this.connection.query(sql, [Codigo, Titulo, idDepartamento], (err, result) => { if (err) return reject(err); resolve({
-            Codigo: result.insertId,
-            Titulo,
-            idDepartamento
-          });
-        }
-      );
+      this.connection.query(sql, [Codigo, Titulo, idDepartamento], (err, result) => {
+        if (err) return reject(err);
+        resolve({
+          Codigo: result.insertId,
+          Titulo,
+          idDepartamento
+        });
+      });
     });
   }
 
