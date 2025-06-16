@@ -124,6 +124,4 @@ CREATE TABLE IF NOT EXISTS Ingresso (
 );
 `;
 
-
-
 module.exports = { create_db };

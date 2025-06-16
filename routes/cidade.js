@@ -4,12 +4,12 @@ const CidadeController = require('../controllers/CidadeController');
 
 router.get('/', CidadeController.getAll);
 
-router.get('/:Codigo', CidadeController.getById);
+router.get('/:id', CidadeController.getById);
 
 router.post('/', CidadeController.create);
 
-router.put('/:Codigo', CidadeController.update);
+router.put('/:id', CidadeController.update);
 
-router.delete('/:Codigo', CidadeController.delete);
+router.delete('/:id', CidadeController.delete);
 
 module.exports = router;

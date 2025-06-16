@@ -3,60 +3,60 @@ const CidadeService = require('../services/CidadeService');
 const CidadeController = {
   async getAll(_req, res) {
     try {
-      const Cidade = await CidadeService.getAll();
-      res.json(Cidade);
+      const cidades = await CidadeService.getAll();
+      res.json(cidades);
     } catch (err) {
-      console.error('Erro ao buscar Cidade:', err);
-      res.status(500).json({ error: 'Erro ao buscar Cidade' });
+      console.error('Erro ao buscar cidades:', err);
+      res.status(500).json({ error: 'Erro ao buscar cidades' });
     }
   },
 
   async getById(req, res) {
     try {
-      const Cidade = await CidadeService.getById(req.params.Codigo);
-      if (!Cidade) {
-        return res.status(404).json({ message: 'Cidade não encontrado' });
+      const cidade = await CidadeService.getById(req.params.id);
+      if (!cidade) {
+        return res.status(404).json({ message: 'Cidade não encontrada' });
       }
-      res.json(Cidade);
+      res.json(cidade);
     } catch (err) {
-      console.error('Erro ao buscar Cidade:', err);
-      res.status(500).json({ error: 'Erro ao buscar Cidade' });
+      console.error('Erro ao buscar cidade:', err);
+      res.status(500).json({ error: 'Erro ao buscar cidade' });
     }
   },
 
   async create(req, res) {
     try {
-      const novo = await CidadeService.create(req.body);
-      res.status(201).json(novo);
+      const novaCidade = await CidadeService.create(req.body);
+      res.status(201).json(novaCidade);
     } catch (err) {
-      console.error('Erro ao criar Cidade:', err);
-      res.status(500).json({ error: 'Erro ao criar Cidade' });
+      console.error('Erro ao criar cidade:', err);
+      res.status(500).json({ error: 'Erro ao criar cidade' });
     }
   },
 
   async update(req, res) {
     try {
-      const atualizado = await CidadeService.update(req.params.Codigo, req.body);
-      if (!atualizado) {
-        return res.status(404).json({ message: 'Cidade não encontrado' });
+      const cidadeAtualizada = await CidadeService.update(req.params.id, req.body);
+      if (!cidadeAtualizada) {
+        return res.status(404).json({ message: 'Cidade não encontrada' });
       }
-      res.json({ message: 'Cidade atualizado com sucesso' });
+      res.json({ message: 'Cidade atualizada com sucesso' });
     } catch (err) {
-      console.error('Erro ao atualizar Cidade:', err);
-      res.status(500).json({ error: 'Erro ao atualizar Cidade' });
+      console.error('Erro ao atualizar cidade:', err);
+      res.status(500).json({ error: 'Erro ao atualizar cidade' });
     }
   },
 
   async delete(req, res) {
     try {
-      const deletado = await CidadeService.delete(req.params.Codigo);
-      if (!deletado) {
-        return res.status(404).json({ message: 'Cidade não encontrado' });
+      const cidadeDeletada = await CidadeService.delete(req.params.id);
+      if (!cidadeDeletada) {
+        return res.status(404).json({ message: 'Cidade não encontrada' });
       }
-      res.json({ message: 'Cidade deletado com sucesso' });
+      res.json({ message: 'Cidade deletada com sucesso' });
     } catch (err) {
-      console.error('Erro ao deletar Cidade:', err);
-      res.status(500).json({ error: 'Erro ao deletar Cidade' });
+      console.error('Erro ao deletar cidade:', err);
+      res.status(500).json({ error: 'Erro ao deletar cidade' });
     }
   }
 };

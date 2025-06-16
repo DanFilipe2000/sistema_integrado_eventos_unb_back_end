@@ -12,11 +12,11 @@ class Cidade {
     });
   }
 
-  getById(Codigo) {
+  getById(id) {
     return new Promise((resolve, reject) => {
       this.connection.query(
         'SELECT * FROM Cidade WHERE Codigo = ?',
-        [Codigo],
+        [id],
         (err, results) => {
           if (err) return reject(err);
           resolve(results[0] || null);
@@ -25,62 +25,38 @@ class Cidade {
     });
   }
 
-  create({ Codigo, Nome, idEstado }) {
+  create({ Nome, idEstado }) {
     return new Promise((resolve, reject) => {
-      const sql = `
-        INSERT INTO Cidade
-          (Codigo, Nome, idEstado)
-        VALUES (?, ?, ?)
-      `;
-      this.connection.query(
-        sql,
-        [Codigo, Nome, idEstado],
-        (err, result) => {
-          if (err) return reject(err);
-          resolve({
-            Codigo: result.insertId,
-            Codigo,
-            Nome, 
-            idEstado
-          });
-        }
-      );
+      const sql = `INSERT INTO Cidade (Nome, idEstado) VALUES (?, ?)`;
+      this.connection.query(sql, [Nome, idEstado], (err, result) => {
+        if (err) return reject(err);
+        resolve({
+          Codigo: result.insertId,
+          Nome,
+          idEstado
+        });
+      });
     });
   }
 
-  update(Codigo, { Nome, idEstado }) {
+  update(id, { Nome, idEstado }) {
     return new Promise((resolve, reject) => {
-      const sql = `
-        UPDATE Cidade
-        SET Codigo = ?, Nome = ?, idEstado = ?
-        WHERE Codigo = ?
-      `;
-      this.connection.query(
-        sql,
-        [Codigo, Nome, idEstado],
-        (err, result) => {
-          if (err) return reject(err);
-          if (result.affectedRows === 0) return resolve(null);
-          resolve({
-            Codigo: Codigo,
-            Codigo,
-            Nome, 
-            idEstado
-          });
-        }
-      );
+      const sql = `UPDATE Cidade SET Nome = ?, idEstado = ? WHERE Codigo = ?`;
+      this.connection.query(sql, [Nome, idEstado, id], (err, result) => {
+        if (err) return reject(err);
+        resolve(result.affectedRows > 0);
+      });
     });
   }
 
-  delete(Codigo) {
+  delete(id) {
     return new Promise((resolve, reject) => {
       this.connection.query(
         'DELETE FROM Cidade WHERE Codigo = ?',
-        [Codigo],
+        [id],
         (err, result) => {
           if (err) return reject(err);
-          if (result.affectedRows === 0) return resolve(null);
-          resolve({ Codigo: Codigo });
+          resolve(result.affectedRows > 0);
         }
       );
     });
