@@ -1,22 +1,22 @@
-class Curso {
+class Estado {
   constructor(connection) {
     this.connection = connection;
   }
 
   getAll() {
     return new Promise((resolve, reject) => {
-      this.connection.query('SELECT * FROM Curso', (err, results) => {
+      this.connection.query('SELECT * FROM Estado', (err, results) => {
         if (err) return reject(err);
         resolve(results);
       });
     });
   }
 
-  getById(id) {
+  getById(Sigla) {
     return new Promise((resolve, reject) => {
       this.connection.query(
-        'SELECT * FROM Curso WHERE Codigo = ?',
-        [id],
+        'SELECT * FROM Estado WHERE Sigla = ?',
+        [Sigla],
         (err, results) => {
           if (err) return reject(err);
           resolve(results[0] || null);
@@ -25,43 +25,31 @@ class Curso {
     });
   }
 
-  create({ Codigo, Titulo, idDepartamento }) {
+  create({ Sigla, Nome }) {
     return new Promise((resolve, reject) => {
-      const sql = `
-        INSERT INTO Curso
-          (Codigo, Titulo, idDepartamento)
-        VALUES (?, ?, ?)
-      `;
-      this.connection.query(sql, [Codigo, Titulo, idDepartamento], (err, result) => {
+      const sql = `INSERT INTO Estado (Sigla, Nome) VALUES (?, ?)`;
+      this.connection.query(sql, [Sigla, Nome], (err, result) => {
         if (err) return reject(err);
-        resolve({
-          Codigo: result.insertId,
-          Titulo,
-          idDepartamento
-        });
+        resolve({ Sigla, Nome });
       });
     });
   }
 
-  update(id, { Codigo, Titulo, idDepartamento }) {
+  update(Sigla, { Nome }) {
     return new Promise((resolve, reject) => {
-      const sql = `
-        UPDATE Curso
-        SET Codigo = ?, Titulo = ?, idDepartamento = ?
-        WHERE Codigo = ?
-      `;
-      this.connection.query(sql, [Codigo, Titulo, idDepartamento, id], (err, result) => {
+      const sql = `UPDATE Estado SET Nome = ? WHERE Sigla = ?`;
+      this.connection.query(sql, [Nome, Sigla], (err, result) => {
         if (err) return reject(err);
         resolve(result.affectedRows > 0);
       });
     });
   }
 
-  delete(id) {
+  delete(Sigla) {
     return new Promise((resolve, reject) => {
       this.connection.query(
-        'DELETE FROM Curso WHERE Codigo = ?',
-        [id],
+        'DELETE FROM Estado WHERE Sigla = ?',
+        [Sigla],
         (err, result) => {
           if (err) return reject(err);
           resolve(result.affectedRows > 0);
@@ -71,4 +59,4 @@ class Curso {
   }
 }
 
-module.exports = Curso;
+module.exports = Estado;
