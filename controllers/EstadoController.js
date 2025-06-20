@@ -51,7 +51,7 @@ const EstadoController = {
 
 async delete(req, res) {
   try {
-    const sigla = req.params.Sigla;
+    const sigla = req.params.sigla;
     const deletada = await EstadoService.delete(sigla);
     if (!deletada) {
       return res.status(404).json({ message: 'Estado não encontrado' });
