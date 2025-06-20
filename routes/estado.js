@@ -4,12 +4,12 @@ const EstadoController = require('../controllers/EstadoController');
 
 router.get('/', EstadoController.getAll);
 
-router.get('/:Sigla', EstadoController.getById);
+router.get('/:sigla', EstadoController.getById);
 
 router.post('/', EstadoController.create);
 
-router.put('/:Sigla', EstadoController.update);
+router.put('/:sigla', EstadoController.update);
 
-router.delete('/:Sigla', EstadoController.delete);
+router.delete('/:sigla', EstadoController.delete);
 
 module.exports = router;
