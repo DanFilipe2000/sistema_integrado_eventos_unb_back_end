@@ -12,11 +12,11 @@ class Avaliacao {
     });
   }
 
-  getById(idParticipante) {
+  getById(idParticipante, idEvento) {
     return new Promise((resolve, reject) => {
       this.connection.query(
-        'SELECT * FROM Avaliacao WHERE idParticipante = ?',
-        [idParticipante],
+        'SELECT * FROM Avaliacao WHERE idParticipante = ? AND idEvento = ?',
+        [idParticipante, idEvento],
         (err, results) => {
           if (err) return reject(err);
           resolve(results[0] || null);
@@ -38,7 +38,6 @@ class Avaliacao {
         (err, result) => {
           if (err) return reject(err);
           resolve({
-            idParticipante: result.insertId,
             Nota,
             Comentario,
             idParticipante,
@@ -49,12 +48,12 @@ class Avaliacao {
     });
   }
 
-  update(idParticipante, { Nota, Comentario, idEvento }) {
+  update(idParticipante, idEvento, { Nota, Comentario }) {
     return new Promise((resolve, reject) => {
       const sql = `
         UPDATE Avaliacao
-        SET Nota= ?, Comentario = ?, idParticipante = ?, idEvento = ?
-        WHERE idParticipante = ?
+        SET Nota = ?, Comentario = ?
+        WHERE idParticipante = ? AND idEvento = ?
       `;
       this.connection.query(
         sql,
@@ -63,26 +62,29 @@ class Avaliacao {
           if (err) return reject(err);
           if (result.affectedRows === 0) return resolve(null);
           resolve({
-            idParticipante: idParticipante,
-            Nota,
-            Comentario,
             idParticipante,
-            idEvento
+            idEvento,
+            Nota,
+            Comentario
           });
         }
       );
     });
   }
 
-  delete(idParticipante) {
+  delete(idParticipante, idEvento) {
     return new Promise((resolve, reject) => {
       this.connection.query(
-        'DELETE FROM Avaliacao WHERE idParticipante = ?',
-        [idParticipante],
+        'DELETE FROM Avaliacao WHERE idParticipante = ? AND idEvento = ?',
+        [idParticipante, idEvento],
         (err, result) => {
           if (err) return reject(err);
           if (result.affectedRows === 0) return resolve(null);
-          resolve({ idParticipante: idParticipante });
+          resolve({ 
+            idParticipante, 
+            idEvento,
+            message: 'Avaliação removida com sucesso' 
+          });
         }
       );
     });

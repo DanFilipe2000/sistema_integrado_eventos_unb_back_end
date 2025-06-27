@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 
 const participantesRoutes = require('./routes/participantes');
 const cursoRoutes = require('./routes/curso');
+const produtoRoutes = require('./routes/produto'); 
 const avaliacaoRoutes = require('./routes/avaliacao');
 const categoriaeventoRoutes = require('./routes/categoriaevento');
 const cidadeRoutes = require('./routes/cidade');
@@ -17,6 +18,7 @@ app.use(bodyParser.json());
 
 app.use('/participantes', participantesRoutes);
 app.use('/curso', cursoRoutes);
+app.use('/produto', produtoRoutes); 
 app.use('/avaliacao', avaliacaoRoutes);
 app.use('/categoriaevento', categoriaeventoRoutes);
 app.use('/cidade', cidadeRoutes);

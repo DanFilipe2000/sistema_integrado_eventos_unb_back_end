@@ -3,60 +3,63 @@ const AvaliacaoService = require('../services/AvaliacaoService');
 const AvaliacaoController = {
   async getAll(_req, res) {
     try {
-      const Avaliacao = await AvaliacaoService.getAll();
-      res.json(Avaliacao);
+      const avaliacoes = await AvaliacaoService.getAll();
+      res.json(avaliacoes);
     } catch (err) {
-      console.error('Erro ao buscar Avaliacao:', err);
-      res.status(500).json({ error: 'Erro ao buscar Avaliacao' });
+      console.error('Erro ao buscar avaliações:', err);
+      res.status(500).json({ error: 'Erro ao buscar avaliações' });
     }
   },
 
   async getById(req, res) {
     try {
-      const avaliacao = await AvaliacaoService.getById(req.params.idParticipante);
+      const { idParticipante, idEvento } = req.params;
+      const avaliacao = await AvaliacaoService.getById(idParticipante, idEvento);
       if (!avaliacao) {
-        return res.status(404).json({ message: 'avaliacao não encontrado' });
+        return res.status(404).json({ message: 'Avaliação não encontrada' });
       }
       res.json(avaliacao);
     } catch (err) {
-      console.error('Erro ao buscar avaliacao:', err);
-      res.status(500).json({ error: 'Erro ao buscar avaliacao' });
+      console.error('Erro ao buscar avaliação:', err);
+      res.status(500).json({ error: 'Erro ao buscar avaliação' });
     }
   },
 
   async create(req, res) {
     try {
-      const novo = await AvaliacaoService.create(req.body);
-      res.status(201).json(novo);
+      const novaAvaliacao = await AvaliacaoService.create(req.body);
+      res.status(201).json(novaAvaliacao);
     } catch (err) {
-      console.error('Erro ao criar avaliacao:', err);
-      res.status(500).json({ error: 'Erro ao criar avaliacao' });
+      console.error('Erro ao criar avaliação:', err);
+      res.status(500).json({ error: 'Erro ao criar avaliação' });
     }
   },
 
   async update(req, res) {
     try {
-      const atualizado = await AvaliacaoService.update(req.params.idParticipante, req.body);
+      const { idParticipante, idEvento } = req.params;
+      const atualizado = await AvaliacaoService.update(idParticipante, idEvento, req.body);
       if (!atualizado) {
-        return res.status(404).json({ message: 'avaliacao não encontrado' });
+        return res.status(404).json({ message: 'Avaliação não encontrada' });
       }
-      res.json({ message: 'avaliacao atualizado com sucesso' });
+      res.json({ message: 'Avaliação atualizada com sucesso', avaliacao: atualizado });
     } catch (err) {
-      console.error('Erro ao atualizar avaliacao:', err);
-      res.status(500).json({ error: 'Erro ao atualizar avaliacao' });
+      console.error('Erro ao atualizar avaliação:', err);
+      res.status(500).json({ error: 'Erro ao atualizar avaliação' });
     }
   },
 
   async delete(req, res) {
     try {
-      const deletado = await AvaliacaoService.delete(req.params.idParticipante);
+      const { idParticipante, idEvento } = req.params;
+      const deletado = await AvaliacaoService.delete(idParticipante, idEvento);
       if (!deletado) {
-        return res.status(404).json({ message: 'avaliacao não encontrado' });
+        return res.status(404).json({ message: 'Avaliação não encontrada' });
       }
-      res.json({ message: 'avaliacao deletado com sucesso' });
+      res.json({ message: 'Avaliação deletada com sucesso' });
     } catch (err) {
-      console.error('Erro ao deletar avaliacao:', err);
-      res.status(500).json({ error: 'Erro ao deletar avaliacao' });
+      console.error('Erro ao deletar avaliação:', err);
+      res.status(500).json({ error: 'Erro ao deletar avaliação' });
     }
   }
 };

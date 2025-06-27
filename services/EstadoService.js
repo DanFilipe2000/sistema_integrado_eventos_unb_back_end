@@ -13,11 +13,11 @@ const EstadoService = {
   },
 
   async create(data) {
-    const { Sigla, Nome } = data;
-    if (!Sigla || !Nome) {
+    const { sigla, Nome } = data;
+    if (!sigla || !Nome) {
       throw new Error('Sigla e Nome são obrigatórios');
     }
-    return await EstadoModel.create({ Sigla, Nome });
+    return await EstadoModel.create({ sigla, Nome });
   },
 
   async update(sigla, data) {

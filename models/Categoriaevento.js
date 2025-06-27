@@ -38,8 +38,7 @@ class Categoriaevento {
         (err, result) => {
           if (err) return reject(err);
           resolve({
-            Codigo: result.insertId,
-            Codigo,
+            Codigo: Codigo, // Usa o código fornecido, não o insertId
             Titulo
           });
         }
@@ -51,17 +50,16 @@ class Categoriaevento {
     return new Promise((resolve, reject) => {
       const sql = `
         UPDATE Categoriaevento
-        SET Codigo = ?, Titulo = ?
+        SET Titulo = ?
         WHERE Codigo = ?
       `;
       this.connection.query(
         sql,
-        [Codigo, Titulo],
+        [Titulo, Codigo], // Apenas atualiza o título, mantém o mesmo código
         (err, result) => {
           if (err) return reject(err);
           if (result.affectedRows === 0) return resolve(null);
           resolve({
-            Codigo: Codigo,
             Codigo,
             Titulo
           });
@@ -78,7 +76,7 @@ class Categoriaevento {
         (err, result) => {
           if (err) return reject(err);
           if (result.affectedRows === 0) return resolve(null);
-          resolve({ Codigo: Codigo });
+          resolve({ Codigo });
         }
       );
     });
