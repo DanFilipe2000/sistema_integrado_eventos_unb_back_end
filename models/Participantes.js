@@ -12,6 +12,20 @@ class Participantes {
     });
   }
 
+  getByEmail(email) {
+    return new Promise((resolve, reject) => {
+      this.connection.query(
+        'SELECT * FROM Participantes WHERE Email = ?',
+        [email],
+        (err, results) => {
+          if (err) return reject(err);
+          if (results.length === 0) return resolve(null);
+          resolve(results[0]);
+        }
+      );
+    });
+  }
+
   getById(matricula) {
     return new Promise((resolve, reject) => {
       this.connection.query(
