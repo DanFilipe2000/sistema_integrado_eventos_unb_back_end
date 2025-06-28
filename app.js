@@ -14,6 +14,8 @@ const estadoRoutes = require('./routes/estado');
 const enderecoRoutes = require('./routes/endereco');
 const loginRoutes = require('./routes/login');
 const registerRoutes = require('./routes/register');
+const eventoRoutes = require('./routes/evento');
+const ingressoRoutes = require('./routes/ingresso');
 
 const app = express();
 app.use(bodyParser.json());
@@ -29,7 +31,10 @@ app.use('/cidade', cidadeRoutes);
 app.use('/tipoingresso', tipoingressoRoutes);
 app.use('/departamento', departamentoRoutes);
 app.use('/estado', estadoRoutes);
+app.use('/endereco', enderecoRoutes)
+app.use('/evento', eventoRoutes);
 app.use('/endereco', enderecoRoutes);
+app.use('/ingresso', ingressoRoutes);
 
 app.listen(3000, async () => {
   initDB();
