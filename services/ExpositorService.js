@@ -11,6 +11,10 @@ const ExpositorService = {
     async getByEmail(email) {
         return await ExpositorModel.getByEmail(email);
     },
+
+    async create(data) {
+        return await ExpositorModel.create(data);
+    },
 };
 
 module.exports = ExpositorService;

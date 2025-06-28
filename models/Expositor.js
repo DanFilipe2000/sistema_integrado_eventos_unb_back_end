@@ -3,7 +3,7 @@ class Expositor {
         this.connection = connection;
     }
 
-    getAll() {
+    getAll () {
         return new Promise((resolve, reject) => {
             this.connection.query('SELECT * FROM Avaliacao', (err, results) => {
                 if (err) return reject(err);
@@ -12,7 +12,7 @@ class Expositor {
         });
     }
 
-    getByEmail(email) {
+    getByEmail (email) {
         return new Promise((resolve, reject) => {
             this.connection.query('SELECT * FROM Expositor WHERE email = ?', [email], (err, results) => {
                 if (err) return reject(err);
@@ -21,6 +21,28 @@ class Expositor {
             });
         });
     }
-}
+
+    create (data) {
+        return new Promise((resolve, reject) => {
+            const { CPF, Nome, DataNascimento, Fones, Email, Password } = data;
+            this.connection.query(
+                'INSERT INTO Expositor (CPF, Nome, DataNascimento, Fones, Email, Password) VALUES (?, ?, ?, ?, ?, ?)',
+                [CPF, Nome, DataNascimento, Fones, Email, Password],
+                (err, results) => {
+                    if (err) return reject(err);
+                    resolve({
+                        id: results.insertId,
+                        CPF,
+                        Nome,
+                        DataNascimento,
+                        Fones,
+                        Email,
+                        Password
+                     });
+                }
+            );
+        });
+    }
+};
 
 module.exports = Expositor;
