@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS Participantes (
     Nome VARCHAR(100) NOT NULL,
     DataNascimento DATE,
     Email VARCHAR(100),
+    Password VARCHAR(255) NOT NULL,
     idCurso INT,
     FOREIGN KEY (idCurso) REFERENCES Curso(Codigo)
 );
@@ -54,7 +55,8 @@ CREATE TABLE IF NOT EXISTS Expositor (
     Nome VARCHAR(100) NOT NULL,
     DataNascimento DATE,
     Fones VARCHAR(20),
-    Email VARCHAR(100)
+    Email VARCHAR(100),
+    Password VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS CategoriaEvento (

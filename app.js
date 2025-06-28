@@ -12,12 +12,16 @@ const tipoingressoRoutes = require('./routes/tipoingresso');
 const departamentoRoutes = require('./routes/departamento');
 const estadoRoutes = require('./routes/estado');
 const enderecoRoutes = require('./routes/endereco');
+const loginRoutes = require('./routes/login');
+const registerRoutes = require('./routes/register');
 const eventoRoutes = require('./routes/evento');
 const ingressoRoutes = require('./routes/ingresso');
 
 const app = express();
 app.use(bodyParser.json());
 
+app.use('/login', loginRoutes);
+app.use('/register', registerRoutes);
 app.use('/participantes', participantesRoutes);
 app.use('/curso', cursoRoutes);
 app.use('/produto', produtoRoutes); 

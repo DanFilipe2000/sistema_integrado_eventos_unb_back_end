@@ -8,6 +8,10 @@ const ParticipantesService = {
     return await ParticipantesModel.getAll();
   },
 
+  async getByEmail(email) {
+    return await ParticipantesModel.getByEmail(email);
+  },
+
   async getById(matricula) {
     return await ParticipantesModel.getById(matricula);
   },

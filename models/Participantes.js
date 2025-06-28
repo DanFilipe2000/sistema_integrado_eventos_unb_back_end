@@ -12,6 +12,20 @@ class Participantes {
     });
   }
 
+  getByEmail(email) {
+    return new Promise((resolve, reject) => {
+      this.connection.query(
+        'SELECT * FROM Participantes WHERE Email = ?',
+        [email],
+        (err, results) => {
+          if (err) return reject(err);
+          if (results.length === 0) return resolve(null);
+          resolve(results[0]);
+        }
+      );
+    });
+  }
+
   getById(matricula) {
     return new Promise((resolve, reject) => {
       this.connection.query(
@@ -25,16 +39,16 @@ class Participantes {
     });
   }
 
-  create({ CPF, Fones, Nome, DataNascimento, Email, idCurso }) {
+  create({ CPF, Fones, Nome, DataNascimento, Email, idCurso, Password }) {
     return new Promise((resolve, reject) => {
       const sql = `
         INSERT INTO Participantes
-          (CPF, Fones, Nome, DataNascimento, Email, idCurso)
-        VALUES (?, ?, ?, ?, ?, ?)
+          (CPF, Fones, Nome, DataNascimento, Email, idCurso, Password)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
       `;
       this.connection.query(
         sql,
-        [CPF, Fones, Nome, DataNascimento, Email, idCurso],
+        [CPF, Fones, Nome, DataNascimento, Email, idCurso, Password],
         (err, result) => {
           if (err) return reject(err);
           resolve({
@@ -44,7 +58,8 @@ class Participantes {
             Nome,
             DataNascimento,
             Email,
-            idCurso
+            idCurso,
+            Password
           });
         }
       );
