@@ -13,6 +13,7 @@ const departamentoRoutes = require('./routes/departamento');
 const estadoRoutes = require('./routes/estado');
 const enderecoRoutes = require('./routes/endereco');
 const eventoRoutes = require('./routes/evento');
+const ingressoRoutes = require('./routes/ingresso');
 
 const app = express();
 app.use(bodyParser.json());
@@ -28,8 +29,8 @@ app.use('/departamento', departamentoRoutes);
 app.use('/estado', estadoRoutes);
 app.use('/endereco', enderecoRoutes)
 app.use('/evento', eventoRoutes);
-
-
+app.use('/endereco', enderecoRoutes);
+app.use('/ingresso', ingressoRoutes);
 
 app.listen(3000, async () => {
   initDB();
