@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const { initDB } = require('./database/db');
 const bodyParser = require('body-parser');
 
@@ -18,6 +19,7 @@ const eventoRoutes = require('./routes/evento');
 const ingressoRoutes = require('./routes/ingresso');
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/login', loginRoutes);
@@ -36,7 +38,9 @@ app.use('/evento', eventoRoutes);
 app.use('/endereco', enderecoRoutes);
 app.use('/ingresso', ingressoRoutes);
 
-app.listen(3000, async () => {
+var PORT = process.env.API_PORT || 3000;
+
+app.listen(PORT, async () => {
   initDB();
-  console.log('Servidor rodando na porta 3000!');
+  console.log(`Servidor rodando na porta ${PORT}!`);
 });
