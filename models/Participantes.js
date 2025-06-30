@@ -39,20 +39,20 @@ class Participantes {
     });
   }
 
-  create({ CPF, Fones, Nome, DataNascimento, Email, idCurso, Password }) {
+  create({ Matricula, CPF, Fones, Nome, DataNascimento, Email, idCurso, Password }) {
     return new Promise((resolve, reject) => {
       const sql = `
         INSERT INTO Participantes
-          (CPF, Fones, Nome, DataNascimento, Email, idCurso, Password)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+          (Matricula, CPF, Fones, Nome, DataNascimento, Email, idCurso, Password)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
       `;
       this.connection.query(
         sql,
-        [CPF, Fones, Nome, DataNascimento, Email, idCurso, Password],
-        (err, result) => {
+        [Matricula, CPF, Fones, Nome, DataNascimento, Email, idCurso, Password],
+        (err, _result) => {
           if (err) return reject(err);
           resolve({
-            Matricula: result.insertId,
+            Matricula,
             CPF,
             Fones,
             Nome,

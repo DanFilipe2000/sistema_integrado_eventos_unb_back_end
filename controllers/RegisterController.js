@@ -7,14 +7,14 @@ const RegisterController = {
             if (req.body.type_user === 'participante') {
                 const existingUser = await ParticipantesService.getByEmail(req.body.Email);
                 if (existingUser) {
-                    return res.status(400).json({ error: 'Email já cadastrado' });
+                    return res.status(200).json({ error: 'Email já cadastrado' });
                 }
                 const newUser = await ParticipantesService.create(req.body);
                 res.status(201).json(newUser);
             } else if (req.body.type_user === 'expositor') {
                 const existingUser = await ExpositoresService.getByEmail(req.body.Email);
                 if (existingUser) {
-                    return res.status(400).json({ error: 'Email já cadastrado' });
+                    return res.status(200).json({ error: 'Email já cadastrado' });
                 }
                 const newUser = await ExpositoresService.create(req.body);
                 res.status(201).json(newUser);
