@@ -21,15 +21,15 @@ class Produto {
     });
   }
 
-  async create({Titulo, descricao, valor, idExpositor, idEvento}) {
+  async create({Titulo, Descricao, Valor, idExpositor, idEvento}) {
     return new Promise((resolve, reject) => {
-      this.connection.query('INSERT INTO Produto SET Titulo = ?, descricao = ?, valor = ?, idExpositor = ?, idEvento = ?', [Titulo, descricao, valor, idExpositor, idEvento], (err, results) => {
+      this.connection.query('INSERT INTO Produto SET Titulo = ?, Descricao = ?, Valor = ?, idExpositor = ?, idEvento = ?', [Titulo, Descricao, Valor, idExpositor, idEvento], (err, results) => {
         if (err) return reject(err);
         resolve({ 
             id: results.insertId,
             Titulo,
-            descricao,
-            valor,
+            Descricao,
+            Valor,
             idExpositor,
             idEvento
         });

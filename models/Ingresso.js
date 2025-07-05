@@ -12,13 +12,13 @@ class Ingresso {
         });
     }
 
-    getByIds({ idParticipante, idEvento, idTipoIngresso }) {
+    getByIds({ idParticipante, idEvento }) {
         return new Promise((resolve, reject) => {
             const sql = `
             SELECT * FROM Ingresso
-            WHERE idParticipante = ? AND idEvento = ? AND idTipoIngresso = ?
+            WHERE idParticipante = ? AND idEvento = ?
         `;
-            this.connection.query(sql, [idParticipante, idEvento, idTipoIngresso], (err, results) => {
+            this.connection.query(sql, [idParticipante, idEvento], (err, results) => {
                 if (err) return reject(err);
                 resolve(results[0] || null);
             });
@@ -49,8 +49,8 @@ class Ingresso {
 
         const sql = `
             UPDATE Ingresso
-            SET idParticipante = ?, idEvento = ?, idTipoIngresso = ?
-            WHERE idParticipante = ? AND idEvento = ? AND idTipoIngresso = ?
+            SET idParticipante = ?, idEvento = ?
+            WHERE idParticipante = ? AND idEvento = ?
         `;
 
         this.connection.query(
@@ -77,10 +77,10 @@ class Ingresso {
 }
 
 
-    delete({ idParticipante, idEvento, idTipoIngresso }) {
+    delete({ idParticipante, idEvento }) {
         return new Promise((resolve, reject) => {
-            const sql = `DELETE FROM Ingresso WHERE idParticipante = ? AND idEvento = ? AND idTipoIngresso = ?`;
-            this.connection.query(sql, [idParticipante, idEvento, idTipoIngresso], (err, result) => {
+            const sql = `DELETE FROM Ingresso WHERE idParticipante = ? AND idEvento = ?`;
+            this.connection.query(sql, [idParticipante, idEvento], (err, result) => {
                 if (err) return reject(err);
                 resolve(result.affectedRows > 0);
             });

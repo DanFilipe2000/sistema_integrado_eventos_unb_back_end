@@ -26,10 +26,8 @@ const IngressoService = {
         return await IngressoModel.update({ idParticipante, idEvento, idTipoIngresso }, data);
     },
 
-    async delete({ idParticipante, idEvento, idTipoIngresso }) {
-        const ingresso = await IngressoModel.getByIds({ idParticipante, idEvento, idTipoIngresso });
-        if (!ingresso) return null;
-        return await IngressoModel.delete({ idParticipante, idEvento, idTipoIngresso });
+    async delete({ idParticipante, idEvento }) {
+        return await IngressoModel.delete({ idParticipante, idEvento });
     }
 };
 

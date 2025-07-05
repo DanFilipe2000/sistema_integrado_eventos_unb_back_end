@@ -1,14 +1,15 @@
 const EventoService = require('../services/EventoService');
+const EnderecoService = require('../services/EnderecoService');
 
 const EventoController = {
-  async getAll(_req, res) {
-    try {
-        const eventos = await EventoService.getAll();
-        res.json(eventos);
-    } catch (err) {
-        console.error('Erro ao buscar eventos:', err);
-        res.status(500).json({ error: 'Erro ao buscar eventos' });
-    }
+    async getAll(_req, res) {
+        try {
+            const eventos = await EventoService.getAll();
+            res.json(eventos);
+        } catch (err) {
+            console.error('Erro ao buscar eventos:', err);
+            res.status(500).json({ error: 'Erro ao buscar eventos' });
+        }
     },
 
     async getById(req, res) {
@@ -26,20 +27,41 @@ const EventoController = {
     },
 
     async create(req, res) {
-  try {
-    const { Titulo, DataInicio, DataFinal, idEndereco } = req.body;
+        try {
+            const { evento, endereco, categorias, expositores } = req.body;
 
-    if (!Titulo || !DataInicio || !DataFinal || !idEndereco) {
-      return res.status(400).json({ error: 'Todos os campos são obrigatórios' });
-    }
+            var result_endereco;
+            var result_evento;
 
-    const novoEvento = await EventoService.create({ Titulo, DataInicio, DataFinal, idEndereco });
-    res.status(201).json(novoEvento);
-  } catch (err) {
-    console.error('Erro ao criar evento:', err);
-    res.status(500).json({ error: 'Erro ao criar evento' });
-  }
-},
+            if (endereco) {
+                result_endereco = await EnderecoService.create({
+                    Logradouro: endereco.logradouro,
+                    Bairro: endereco.bairro,
+                    Numero: endereco.numero,
+                    CEP: endereco.cep,
+                    idCidade: endereco.cidade_id
+                });
+            }
+
+            if (evento) {
+                result_evento = await EventoService.create({
+                    Titulo: evento.titulo,
+                    DataInicio: evento.data_inicio,
+                    DataFinal: evento.data_termino,
+                    idEndereco: result_endereco.Codigo,
+                    CaminhoFoto: evento.imagem,
+                    CriadoPor: evento.criadoPor
+                }, categorias, expositores)
+            }
+
+            
+
+            res.status(201).json(result_evento);
+        } catch (err) {
+            console.error('Erro ao criar evento:', err);
+            res.status(500).json({ error: 'Erro ao criar evento' });
+        }
+    },
 
     async update(req, res) {
         try {

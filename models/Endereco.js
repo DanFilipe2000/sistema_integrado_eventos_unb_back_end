@@ -25,16 +25,16 @@ class Endereco {
     });
   }
 
-  create({ Logradouro, Bairro, Numero, CEP, Latitude, Longitude, idCidade }) {
+  create({ Logradouro, Bairro, Numero, CEP, idCidade }) {
     return new Promise((resolve, reject) => {
       const sql = `
         INSERT INTO Endereco
-          (Logradouro, Bairro, Numero, CEP, Latitude, Longitude, idCidade)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+          (Logradouro, Bairro, Numero, CEP, idCidade)
+        VALUES (?, ?, ?, ?, ?)
       `;
       this.connection.query(
         sql,
-        [Logradouro, Bairro, Numero, CEP, Latitude, Longitude, idCidade],
+        [Logradouro, Bairro, Numero, CEP, idCidade],
         (err, result) => {
           if (err) return reject(err);
           resolve({
@@ -43,8 +43,6 @@ class Endereco {
             Bairro,
             Numero,
             CEP,
-            Latitude,
-            Longitude,
             idCidade
           });
         }

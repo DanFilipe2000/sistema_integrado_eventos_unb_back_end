@@ -12,11 +12,11 @@ class Participantes {
     });
   }
 
-  getByEmail(email) {
+  getByEmail(Email) {
     return new Promise((resolve, reject) => {
       this.connection.query(
         'SELECT * FROM Participantes WHERE Email = ?',
-        [email],
+        [Email],
         (err, results) => {
           if (err) return reject(err);
           if (results.length === 0) return resolve(null);
@@ -39,16 +39,16 @@ class Participantes {
     });
   }
 
-  create({ Matricula, CPF, Fones, Nome, DataNascimento, Email, idCurso, Password }) {
+  create({ Matricula, CPF, Fones, Nome, DataNascimento, Email, idCurso, Password, CaminhoFoto }) {
     return new Promise((resolve, reject) => {
       const sql = `
         INSERT INTO Participantes
-          (Matricula, CPF, Fones, Nome, DataNascimento, Email, idCurso, Password)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+          (Matricula, CPF, Fones, Nome, DataNascimento, Email, idCurso, Password, CaminhoFoto)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
       `;
       this.connection.query(
         sql,
-        [Matricula, CPF, Fones, Nome, DataNascimento, Email, idCurso, Password],
+        [Matricula, CPF, Fones, Nome, DataNascimento, Email, idCurso, Password, CaminhoFoto],
         (err, _result) => {
           if (err) return reject(err);
           resolve({
@@ -59,7 +59,7 @@ class Participantes {
             DataNascimento,
             Email,
             idCurso,
-            Password
+            CaminhoFoto
           });
         }
       );
