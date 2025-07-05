@@ -20,8 +20,6 @@ CREATE TABLE IF NOT EXISTS Endereco (
     Bairro VARCHAR(50) NOT NULL,
     Numero VARCHAR(10) NOT NULL,
     CEP CHAR(8) NOT NULL,
-    Latitude DECIMAL(9,6),
-    Longitude DECIMAL(9,6),
     idCidade INT NOT NULL,
     FOREIGN KEY (idCidade) REFERENCES Cidade(Codigo)
 );
@@ -46,6 +44,7 @@ CREATE TABLE IF NOT EXISTS Participantes (
     DataNascimento DATE,
     Email VARCHAR(100),
     Password VARCHAR(255) NOT NULL,
+    CaminhoFoto VARCHAR(255),
     idCurso INT,
     FOREIGN KEY (idCurso) REFERENCES Curso(Codigo)
 );
@@ -56,7 +55,8 @@ CREATE TABLE IF NOT EXISTS Expositor (
     DataNascimento DATE,
     Fones VARCHAR(20),
     Email VARCHAR(100),
-    Password VARCHAR(255) NOT NULL
+    Password VARCHAR(255) NOT NULL,
+    CaminhoFoto VARCHAR(255)
 );
 
 CREATE TABLE IF NOT EXISTS CategoriaEvento (
@@ -69,6 +69,7 @@ CREATE TABLE IF NOT EXISTS Evento (
     Titulo VARCHAR(100) NOT NULL,
     DataInicio DATE,
     DataFinal DATE,
+    CaminhoFoto VARCHAR(255),
     idEndereco INT,
     FOREIGN KEY (idEndereco) REFERENCES Endereco(Codigo)
 );

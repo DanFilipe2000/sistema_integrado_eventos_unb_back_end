@@ -17,6 +17,8 @@ const loginRoutes = require('./routes/login');
 const registerRoutes = require('./routes/register');
 const eventoRoutes = require('./routes/evento');
 const ingressoRoutes = require('./routes/ingresso');
+const imageRoutes = require('./routes/image');
+const expositorRoutes = require('./routes/expositor');
 
 const app = express();
 app.use(cors());
@@ -35,8 +37,9 @@ app.use('/departamento', departamentoRoutes);
 app.use('/estado', estadoRoutes);
 app.use('/endereco', enderecoRoutes)
 app.use('/evento', eventoRoutes);
-app.use('/endereco', enderecoRoutes);
+app.use('/expositor', expositorRoutes);
 app.use('/ingresso', ingressoRoutes);
+app.use('/image', imageRoutes);
 
 var PORT = process.env.API_PORT || 3000;
 

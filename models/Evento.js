@@ -10,6 +10,7 @@ class evento {
             });
         });
     }
+
     getById(id) {
         return new Promise((resolve, reject) => {
             this.connection.query(
@@ -22,15 +23,16 @@ class evento {
             );
         });
     }
-    create({ Titulo, DataInicio, DataFinal, idEndereco }) {
+
+    create({ Titulo, DataInicio, DataFinal, idEndereco, CaminhoFoto, CriadoPor }) {
     return new Promise((resolve, reject) => {
       const sql = `
-        INSERT INTO Evento (Titulo, DataInicio, DataFinal, idEndereco)
-        VALUES (?, ?, ?, ?)
+        INSERT INTO Evento (Titulo, DataInicio, DataFinal, idEndereco, CaminhoFoto, CriadoPor)
+        VALUES (?, ?, ?, ?, ?, ?)
       `;
       this.connection.query(
         sql,
-        [Titulo, DataInicio, DataFinal, idEndereco],
+        [Titulo, DataInicio, DataFinal, idEndereco, CaminhoFoto, CriadoPor],
         (err, result) => {
           if (err) return reject(err);
           resolve({
@@ -38,7 +40,9 @@ class evento {
             Titulo,
             DataInicio,
             DataFinal,
-            idEndereco
+            idEndereco,
+            CaminhoFoto,
+            CriadoPor
           });
         }
       );

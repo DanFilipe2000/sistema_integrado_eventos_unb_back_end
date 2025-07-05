@@ -5,7 +5,7 @@ class Expositor {
 
     getAll () {
         return new Promise((resolve, reject) => {
-            this.connection.query('SELECT * FROM Avaliacao', (err, results) => {
+            this.connection.query('SELECT CPF, Nome, Fones, Email, CaminhoFoto FROM Expositor', (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
