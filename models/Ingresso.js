@@ -47,35 +47,34 @@ class Ingresso {
         return new Promise((resolve, reject) => {
 
 
-        const sql = `
+            const sql = `
             UPDATE Ingresso
             SET idParticipante = ?, idEvento = ?
             WHERE idParticipante = ? AND idEvento = ?
         `;
 
-        this.connection.query(
-            sql,
-            [
-                data.idParticipante || idParticipante,
-                data.idEvento || idEvento,
-                data.idTipoIngresso || idTipoIngresso,
-                idParticipante,
-                idEvento,
-                idTipoIngresso
-            ],
-            (err, result) => {
-                if (err) return reject(err);
-                if (result.affectedRows === 0) return resolve(null);
-                resolve({
-                    idParticipante: data.idParticipante || idParticipante,
-                    idEvento: data.idEvento || idEvento,
-                    idTipoIngresso: data.idTipoIngresso || idTipoIngresso
-                });
-            }
-        );
-    });
-}
-
+            this.connection.query(
+                sql,
+                [
+                    data.idParticipante || idParticipante,
+                    data.idEvento || idEvento,
+                    data.idTipoIngresso || idTipoIngresso,
+                    idParticipante,
+                    idEvento,
+                    idTipoIngresso
+                ],
+                (err, result) => {
+                    if (err) return reject(err);
+                    if (result.affectedRows === 0) return resolve(null);
+                    resolve({
+                        idParticipante: data.idParticipante || idParticipante,
+                        idEvento: data.idEvento || idEvento,
+                        idTipoIngresso: data.idTipoIngresso || idTipoIngresso
+                    });
+                }
+            );
+        });
+    }
 
     delete({ idParticipante, idEvento }) {
         return new Promise((resolve, reject) => {
