@@ -1,6 +1,8 @@
 const mysql = require('mysql2');
+const path = require('path');
 const fs = require('fs');
-const create_db_script = fs.readFileSync('../scripts_mysql/create_db.sql', 'utf8');
+const createDBPath = path.resolve(__dirname, '../scripts_mysql/create_db.sql');
+const create_db_script = fs.readFileSync(createDBPath, 'utf8');
 require('dotenv').config();
 
 const connection = mysql.createConnection({
