@@ -1,0 +1,29 @@
+DELIMITER //
+
+CREATE OR REPLACE PROCEDURE sp_CadastrarEvento(
+  IN p_Titulo     VARCHAR(100),
+  IN p_DataInicio DATE,
+  IN p_DataFinal  DATE,
+  IN p_CaminhoFoto VARCHAR(255),
+  IN p_idEndereco INT
+)
+BEGIN
+  IF EXISTS (
+    SELECT 1
+      FROM Evento
+     WHERE Titulo     = p_Titulo
+       AND DataInicio = p_DataInicio
+       AND DataFinal  = p_DataFinal
+  ) THEN
+    SIGNAL SQLSTATE '45000'
+      SET MESSAGE_TEXT = 'Já existe um evento cadastrado com este título e datas';
+  ELSE
+    INSERT INTO Evento
+      (Titulo, DataInicio, DataFinal, CaminhoFoto, idEndereco)
+    VALUES
+      (p_Titulo, p_DataInicio, p_DataFinal, p_CaminhoFoto, p_idEndereco);
+  END IF;
+END
+//
+
+DELIMITER ;
