@@ -1,4 +1,3 @@
-// database/init.js
 const mysql = require('mysql2/promise');
 require('dotenv').config();
 
@@ -13,6 +12,17 @@ const scripts = [
   path.resolve(__dirname, '../scripts_mysql/seeders/curso.sql'),
   path.resolve(__dirname, '../scripts_mysql/seeders/tipo_ingresso.sql'),
   path.resolve(__dirname, '../scripts_mysql/seeders/categoria_evento.sql'),
+  path.resolve(__dirname, '../scripts_mysql/seeders/participante.sql'),
+  path.resolve(__dirname, '../scripts_mysql/seeders/expositor.sql'),
+  path.resolve(__dirname, '../scripts_mysql/seeders/endereco.sql'),
+  path.resolve(__dirname, '../scripts_mysql/seeders/evento.sql'),
+  path.resolve(__dirname, '../scripts_mysql/seeders/ingresso.sql'),
+  path.resolve(__dirname, '../scripts_mysql/seeders/produto.sql'),
+  path.resolve(__dirname, '../scripts_mysql/seeders/rel_evento_categoria.sql'),
+  path.resolve(__dirname, '../scripts_mysql/seeders/rel_evento_expositor.sql'),
+  path.resolve(__dirname, '../scripts_mysql/seeders/avaliacao.sql'),
+  path.resolve(__dirname, '../scripts_mysql/procedures/inscricaoEvento.sql'),
+  path.resolve(__dirname, '../scripts_mysql/views/vw_resumo_evento.sql'),
 ];
 
 async function initDB() {
@@ -23,22 +33,25 @@ async function initDB() {
     multipleStatements: true
   });
 
-  try {
-    console.log('Conexão com MySQL estabelecida!');
+  console.log('Conexão com MySQL estabelecida!');
 
-    for (const filePath of scripts) {
+  for (const filePath of scripts) {
+    try {
       const sql = fs.readFileSync(filePath, 'utf8');
       console.log(`Executando script: ${path.basename(filePath)}`);
       await connection.query(sql);
-    }
 
-    console.log('Todos os scripts foram executados com sucesso!');
-  } catch (err) {
-    console.error('Erro ao executar scripts SQL:', err);
-  } finally {
-    await connection.end();
-    console.log('Conexão encerrada.');
+      if (filePath.includes('create_db.sql')) {
+        await connection.changeUser({ database: process.env.DB_NAME });
+      }
+    } catch (err) {
+      console.error(`❌ Erro no script ${path.basename(filePath)}:`, err.message);
+      break;
+    }
   }
+
+  await connection.end();
+  console.log('Conexão encerrada.');
 }
 
 module.exports = { initDB };

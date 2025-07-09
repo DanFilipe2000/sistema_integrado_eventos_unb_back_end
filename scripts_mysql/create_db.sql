@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS Evento (
     Titulo VARCHAR(100) NOT NULL,
     DataInicio DATE,
     DataFinal DATE,
-    CaminhoFoto VARCHAR(255),
+    Foto_b64 VARCHAR(255),
     idEndereco INT,
     FOREIGN KEY (idEndereco) REFERENCES Endereco(Codigo)
 );

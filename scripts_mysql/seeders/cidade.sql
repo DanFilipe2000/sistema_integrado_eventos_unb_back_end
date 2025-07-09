@@ -1,4 +1,4 @@
-INSERT INTO Cidade (Nome, idEstado) VALUES
+INSERT IGNORE INTO Cidade (Nome, idEstado) VALUES
   ('Rio Branco', 'AC'),
   ('Maceió', 'AL'),
   ('Macapá', 'AP'),

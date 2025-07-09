@@ -1,4 +1,4 @@
-INSERT INTO Departamento (Nome) VALUES
+INSERT IGNORE INTO Departamento (Nome) VALUES
   ('Departamento de Ciência da Computação'),
   ('Departamento de Engenharia Elétrica'),
   ('Departamento de Engenharia Mecânica'),

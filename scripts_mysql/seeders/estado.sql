@@ -1,4 +1,4 @@
-INSERT INTO Estado (Sigla, Nome) VALUES
+INSERT IGNORE INTO Estado (Sigla, Nome) VALUES
   ('AC','Acre'),
   ('AL','Alagoas'),
   ('AP','Amapá'),

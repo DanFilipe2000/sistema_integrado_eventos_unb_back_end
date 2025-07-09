@@ -49,12 +49,10 @@ const EventoController = {
                     DataInicio: evento.data_inicio,
                     DataFinal: evento.data_termino,
                     idEndereco: result_endereco.Codigo,
-                    CaminhoFoto: evento.imagem,
+                    Foto_b64: evento.imagem,
                     CriadoPor: evento.criadoPor
                 }, categorias, expositores)
             }
-
-            
 
             res.status(201).json(result_evento);
         } catch (err) {
@@ -76,6 +74,7 @@ const EventoController = {
             res.status(500).json({ error: 'Erro ao atualizar evento' });
         }
     },
+
     async delete(req, res) {
         try {
             const { id } = req.params;

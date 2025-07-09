@@ -1,6 +1,6 @@
 -- Seeder: cursos da UnB com sigla e habilitação, referência SIGAA/UnB
 
-INSERT INTO Curso (Titulo, idDepartamento) VALUES
+INSERT IGNORE INTO Curso (Titulo, idDepartamento) VALUES
   -- Administração
   ('ADM – Administração – Bacharelado (Diurno)', 25),
   ('ADM – Administração – Bacharelado (Noturno)', 25),
