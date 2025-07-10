@@ -21,8 +21,13 @@ const scripts = [
   path.resolve(__dirname, '../scripts_mysql/seeders/rel_evento_categoria.sql'),
   path.resolve(__dirname, '../scripts_mysql/seeders/rel_evento_expositor.sql'),
   path.resolve(__dirname, '../scripts_mysql/seeders/avaliacao.sql'),
-  path.resolve(__dirname, '../scripts_mysql/procedures/inscricaoEvento.sql'),
-  path.resolve(__dirname, '../scripts_mysql/views/vw_resumo_evento.sql'),
+  path.resolve(__dirname, '../scripts_mysql/procedures/VerificarConflito.sql'),
+  path.resolve(__dirname, '../scripts_mysql/procedures/inscreverEvento.sql'),
+  path.resolve(__dirname, '../scripts_mysql/views/vw_evento_resumo.sql'),
+  path.resolve(__dirname, '../scripts_mysql/views/vw_eventos_futuros.sql'),
+  path.resolve(__dirname, '../scripts_mysql/views/vw_expositor_produtos.sql'),
+  path.resolve(__dirname, '../scripts_mysql/views/vw_participantes_curso.sql'),
+  path.resolve(__dirname, '../scripts_mysql/views/vw_inscrições_completo.sql'),
 ];
 
 async function initDB() {
