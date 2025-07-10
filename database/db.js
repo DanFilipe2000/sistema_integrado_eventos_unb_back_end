@@ -1,4 +1,6 @@
-const mysql = require('mysql2/promise');
+const mysql_promisse = require('mysql2/promise');
+const mysql = require('mysql2');
+
 require('dotenv').config();
 
 const path = require('path');
@@ -26,7 +28,7 @@ const scripts = [
 ];
 
 async function initDB() {
-  const connection = await mysql.createConnection({
+  let connect = await mysql_promisse.createConnection({
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',
     password: process.env.DB_PASS || '',
@@ -39,10 +41,10 @@ async function initDB() {
     try {
       const sql = fs.readFileSync(filePath, 'utf8');
       console.log(`Executando script: ${path.basename(filePath)}`);
-      await connection.query(sql);
+      await connect.query(sql);
 
       if (filePath.includes('create_db.sql')) {
-        await connection.changeUser({ database: process.env.DB_NAME });
+        await connect.changeUser({ database: process.env.DB_NAME });
       }
     } catch (err) {
       console.error(`❌ Erro no script ${path.basename(filePath)}:`, err.message);
@@ -50,8 +52,8 @@ async function initDB() {
     }
   }
 
-  await connection.end();
+  await connect.end();
   console.log('Conexão encerrada.');
-}
+};
 
 module.exports = { initDB };

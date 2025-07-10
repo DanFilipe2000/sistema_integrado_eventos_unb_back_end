@@ -1,5 +1,5 @@
 const Departamento = require('../models/Departamento');
-const { connection } = require('../database/db');
+const { connection } = require('../database/connection');
 
 const DepartamentoModel = new Departamento(connection);
 

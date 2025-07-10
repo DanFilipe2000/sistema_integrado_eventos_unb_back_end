@@ -1,5 +1,5 @@
 const Avaliacao = require('../models/Avaliacao');
-const { connection } = require('../database/db');
+const { connection } = require('../database/connection');
 
 const AvaliacaoModel = new Avaliacao(connection);
 

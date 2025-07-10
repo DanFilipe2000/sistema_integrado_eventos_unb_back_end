@@ -3,6 +3,10 @@ const ExpositoresService = require('../services/ExpositorService');
 
 const RegisterController = {
     async register(req, res) {
+        const foto_b64 = req.file ? req.file.buffer.toString('base64') : null;
+
+        if (foto_b64) req.body.Foto_b64 = foto_b64;
+
         try {
             if (req.body.type_user === 'participante') {
                 const existingUser = await ParticipantesService.getByEmail(req.body.Email);

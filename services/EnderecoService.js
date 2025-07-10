@@ -1,5 +1,5 @@
 const Endereco = require('../models/Endereco');
-const { connection } = require('../database/db');
+const { connection } = require('../database/connection');
 
 const EnderecoModel = new Endereco(connection);
 

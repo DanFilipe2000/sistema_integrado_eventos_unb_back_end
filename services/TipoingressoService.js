@@ -1,5 +1,5 @@
 const Tipoingresso = require('../models/Tipoingresso');
-const { connection } = require('../database/db')
+const { connection } = require('../database/connection')
 
 const TipoingressoModel = new Tipoingresso(connection);
 

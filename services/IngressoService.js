@@ -1,5 +1,5 @@
 const Ingresso = require('../models/Ingresso');
-const { connection } = require('../database/db');
+const { connection } = require('../database/connection');
 
 const IngressoModel = new Ingresso(connection);
 

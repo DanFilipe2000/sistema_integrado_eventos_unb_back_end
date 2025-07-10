@@ -1,5 +1,5 @@
 const Categoriaevento = require('../models/Categoriaevento');
-const { connection } = require('../database/db')
+const { connection } = require('../database/connection')
 
 const CategoriaeventoModel = new Categoriaevento(connection);
 

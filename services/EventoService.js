@@ -3,7 +3,7 @@ const fs = require('fs').promises;
 const Evento = require('../models/Evento');
 const RelEventoCategoria = require('../models/RelEventoCategoria');
 const RelEventoExpositor = require('../models/RelEventoExpositor');
-const { connection } = require('../database/db');
+const { connection } = require('../database/connection');
 const EventoModel = new Evento(connection);
 const RelEventoCategoriaModel = new RelEventoCategoria(connection);
 const RelEventoExpositorModel = new RelEventoExpositor(connection);
@@ -12,12 +12,11 @@ async function converterImagemParaBase64(caminhoRelativo) {
   if (!caminhoRelativo) return null;
 
   try {
-    // Substitui \\ por / e pega apenas o nome do arquivo
     const nomeArquivo = path.basename(caminhoRelativo.replace(/\\/g, '/'));
 
     const caminhoCompleto = path.join(__dirname, '../images/event', nomeArquivo);
     const buffer = await fs.readFile(caminhoCompleto);
-    const extensao = path.extname(nomeArquivo).substring(1); // ex: jpg
+    const extensao = path.extname(nomeArquivo).substring(1);
     return `data:image/${extensao};base64,${buffer.toString('base64')}`;
   } catch (err) {
     console.warn(`Erro ao converter imagem: ${caminhoRelativo}`, err.message);
@@ -68,7 +67,6 @@ const EventoService = {
       }
     }
 
-    // Vincula expositores ao evento
     if (Array.isArray(expositores)) {
       for (const idExpositor of expositores) {
         await RelEventoExpositorModel.create({ idEvento, idExpositor });

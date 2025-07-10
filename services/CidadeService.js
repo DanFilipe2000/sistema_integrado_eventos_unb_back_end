@@ -1,6 +1,6 @@
 const Cidade = require('../models/Cidade');
 
-const { connection } = require('../database/db');
+const { connection } = require('../database/connection');
 
 const CidadeModel = new Cidade(connection);
 

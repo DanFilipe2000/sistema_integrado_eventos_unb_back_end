@@ -39,16 +39,16 @@ class Participantes {
     });
   }
 
-  create({ Matricula, CPF, Fones, Nome, DataNascimento, Email, idCurso, Password, CaminhoFoto }) {
+  create({ Matricula, CPF, Fones, Nome, DataNascimento, Email, idCurso, Password, Foto_b64 }) {
     return new Promise((resolve, reject) => {
       const sql = `
         INSERT INTO Participantes
-          (Matricula, CPF, Fones, Nome, DataNascimento, Email, idCurso, Password, CaminhoFoto)
+          (Matricula, CPF, Fones, Nome, DataNascimento, Email, idCurso, Password, Foto_b64)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
       `;
       this.connection.query(
         sql,
-        [Matricula, CPF, Fones, Nome, DataNascimento, Email, idCurso, Password, CaminhoFoto],
+        [Matricula, CPF, Fones, Nome, DataNascimento, Email, idCurso, Password, Foto_b64],
         (err, _result) => {
           if (err) return reject(err);
           resolve({
@@ -59,23 +59,23 @@ class Participantes {
             DataNascimento,
             Email,
             idCurso,
-            CaminhoFoto
+            Foto_b64
           });
         }
       );
     });
   }
 
-  update(matricula, { CPF, Fones, Nome, DataNascimento, Email, idCurso }) {
+  update(matricula, { CPF, Fones, Nome, DataNascimento, Email, idCurso, Foto_b64 }) {
     return new Promise((resolve, reject) => {
       const sql = `
         UPDATE Participantes
-        SET CPF = ?, Fones = ?, Nome = ?, DataNascimento = ?, Email = ?, idCurso = ?
+        SET CPF = ?, Fones = ?, Nome = ?, DataNascimento = ?, Email = ?, idCurso = ?, Foto_b64 = ?
         WHERE Matricula = ?
       `;
       this.connection.query(
         sql,
-        [CPF, Fones, Nome, DataNascimento, Email, idCurso, matricula],
+        [CPF, Fones, Nome, DataNascimento, Email, idCurso, Matricula, Foto_b64],
         (err, result) => {
           if (err) return reject(err);
           if (result.affectedRows === 0) return resolve(null);
@@ -86,7 +86,8 @@ class Participantes {
             Nome,
             DataNascimento,
             Email,
-            idCurso
+            idCurso,
+            Foto_b64
           });
         }
       );

@@ -44,6 +44,6 @@ app.use('/image', imageRoutes);
 var PORT = process.env.API_PORT || 3000;
 
 app.listen(PORT, async () => {
-  initDB();
+  await initDB();
   console.log(`Servidor rodando na porta ${PORT}!`);
 });

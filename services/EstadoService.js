@@ -1,5 +1,5 @@
 const Estado = require('../models/Estado');
-const { connection } = require('../database/db');
+const { connection } = require('../database/connection');
 
 const EstadoModel = new Estado(connection);
 

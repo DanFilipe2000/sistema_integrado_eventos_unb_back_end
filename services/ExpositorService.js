@@ -1,5 +1,5 @@
 const Expositor = require('../models/Expositor');
-const { connection } = require('../database/db');
+const { connection } = require('../database/connection');
 const path = require('path');
 const fs = require('fs').promises;
 

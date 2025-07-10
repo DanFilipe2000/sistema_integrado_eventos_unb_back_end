@@ -1,5 +1,5 @@
 const Produto = require('../models/Produto');
-const { connection } = require('../database/db');
+const { connection } = require('../database/connection');
 const ProdutoModel = new Produto(connection);
 
 const ProdutoService = {
