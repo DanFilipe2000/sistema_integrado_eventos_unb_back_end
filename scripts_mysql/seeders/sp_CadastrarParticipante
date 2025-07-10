@@ -1,0 +1,37 @@
+DELIMITER //
+
+ALTER TABLE Participantes
+  ADD CONSTRAINT uq_participantes_cpf UNIQUE (CPF);
+
+
+CREATE OR REPLACE PROCEDURE sp_CadastrarParticipante(
+  IN p_CPF         CHAR(11),
+  IN p_Fones       VARCHAR(20),
+  IN p_Nome        VARCHAR(100),
+  IN p_DataNasc    DATE,
+  IN p_Email       VARCHAR(100),
+  IN p_Senha       VARCHAR(255),
+  IN p_CaminhoFoto VARCHAR(255),
+  IN p_idCurso     INT
+)
+BEGIN
+  -- 1) Checa se já existe participante com esse CPF
+  IF EXISTS (
+    SELECT 1
+      FROM Participantes
+     WHERE CPF = p_CPF
+  ) THEN
+    -- 2) Se existir, sinaliza erro customizado
+    SIGNAL SQLSTATE '45000'
+      SET MESSAGE_TEXT = 'Já existe participante com este CPF';
+  ELSE
+    -- 3) Se não existir, faz o insert
+    INSERT INTO Participantes
+      (CPF, Fones, Nome, DataNascimento, Email, Password, CaminhoFoto, idCurso)
+    VALUES
+      (p_CPF, p_Fones, p_Nome, p_DataNasc, p_Email, p_Senha, p_CaminhoFoto, p_idCurso);
+  END IF;
+END
+//
+
+DELIMITER ;
